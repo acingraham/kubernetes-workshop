@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Kubernetes Intro Workshop</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -16,8 +16,299 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h3>Intro to Kubernetes Workshop</h3>
+					<hr />
+					<ul>
+						<li>Go to <a href="https://bit.ly/mongo-kubernetes" target="_blank">bit.ly/mongo-kubernetes</a> to open these slides</li>
+						<li>Once open, press &rarr; to go to the next slide and confirm you have all the dependencies installed for this workshop</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h3>[1 of 4] Confirm Docker Desktop is installed</h3>
+						<hr />
+						<ul>
+							<li>
+								<p>Run the following command in your terminal:</p>
+								<pre><code data-trim data-noescape>
+									docker ps
+								</code></pre>
+							</li>
+							<li>
+								<p>You should see something like the following:</p>
+								<img src="./assets/dockerps-success.png" alt="docker ps success"/>
+							</li>
+							<li>If so, click &rarr;. If not, click &darr; to troubleshoot.</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Install Docker Desktop</h3>
+						<hr />
+						<ul>
+							<li>Go to <a href="https://docs.docker.com/get-docker/" target="_blank">docs.docker.com/get-docker/</a> and follow the instructions to install Docker Desktop</li>
+							<li>Once done, click &rarr;</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>[2 of 4] Enable Kubernetes on Docker Desktop</h3>
+						<hr />
+						<ul>
+							<li>
+								<p>Open the Docker Desktop Dashboard, go to Settings, and enable Kubernetes if it isn't already. Click <strong>Apply & restart</strong> after enabling. Press &darr; for more detailed instructions</p>
+								<img src="./assets/DockerDesktopKubernetes.png" alt="Docker Desktop Enable Kubernetes" class="image-sm">
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Enable Kubernetes on Docker Desktop</h3>
+						<hr />
+						<ul>
+							<li>Go to <a href="https://docs.docker.com/desktop/kubernetes/" target="_blank">docs.docker.com/desktop/kubernetes/</a> and follow the instructions to enable Kubernetes on Docker Desktop</li>
+							<li>Once done, click &rarr;</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>[3 of 4] Confirm kubectl is installed</h3>
+						<hr />
+						<ul>
+							<li>
+								<p>Run the following command in your terminal:</p>
+								<pre><code data-trim data-noescape>
+									kubectl get nodes
+								</code></pre>
+							</li>
+							<li>
+								<p>You should see something like the following:</p>
+								<img src="./assets/KubectlGetNodesSuccess.png" alt="kubectl get nodes success"/>
+							</li>
+							<li>If so, click &rarr;. If not, click &darr; to troubleshoot.</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Install kubectl</h3>
+						<hr />
+						<ul>
+							<li>Go to <a href="https://kubernetes.io/docs/tasks/tools/#kubectl" target="_blank">kubernetes.io/docs/tasks/tools/#kubectl</a> and follow the instructions to install kubectl</li>
+							<li>Once done, click &rarr;</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>[4 of 4] Install the Coopernetes container we'll be using for examples</h3>
+					<hr />
+
+					<ul>
+						<li>
+							<p>Run the following command in your terminal:</p>
+							<pre><code data-trim data-noescape>
+								docker pull andrewingraham509/coopernetes:latest
+							</code></pre>
+						</li>
+						<li>
+							<p>You should see something like the following:</p>
+							<img src="./assets/DockerPullSuccess.png" alt="docker pull success"/>
+						</li>
+						<li>If you run into an error, let me know! Otherwise, click &rarr;</li>
+					</ul>
+				</section>
+	
+				<section>
+					<section>
+						<h3>You're ready for the workshop!</h3>
+						<hr />
+						<p>We'll start shortly. While you wait, feel free to press &darr; repeatedly to learn some Kubernetes trivia.</p>
+					</section>
+					<section>
+						<p><strong>Kubernetes</strong> is a Greek word meaning <strong>helmsman</strong> which is the person who steers a ship, the same way Kubernetes steers the containers it controls. Kubernetes was also chosen because it was a rarely Googled term.</p>
+					</section>
+					<section>
+						<p>Kubernetes is based on Google's internal container orchestration project called <strong>Borg</strong></p>
+					</section>
+					<section>
+						<p>The team originally wanted to call it <a href="https://en.wikipedia.org/wiki/Seven_of_Nine" target="_blank">Seven of Nine</a> as a reference to the Star Trek Borg drone, but trademarking wouldn't allow it</p>
+						<img src="./assets/SevenOfNine.jpeg" alt="Seven of Nine Drone" class="image-sm" />
+					</section>
+					<section>
+						<p>The wheel of a ship is called a <strong>helm</strong> and is where the Kubernetes logo comes from. Despite helms typically having 6 or 8 spokes, you'll notice the Kubernetes logo has 7. This is a reference to the "Seven of Nine" drone.</p>
+						<img src="./assets/KubernetesLogo.png" alt="Kubernetes Logo" class="image-sm"/>
+					</section>
+					<section>
+						Kubernetes is often shortened to k8s (pronounced "kates")
+					</section>
+					<section>
+						<p>Want more Kubernetes lore? Here's a documentary on Kubernetes:</p>
+						<p><iframe width="560" height="315" src="https://www.youtube.com/embed/BE77h7dmoQU?si=kegavaoulcPeGs5v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
+					</section>
+				</section>
+
+				<section>
+					<h3>Overview</h3>
+					<hr />
+					<ol>
+						<li>Intro to Kubernetes</li>
+						<li>Kubernetes Architecture and Fundamentals</li>
+						<li>Demo Project</li>
+					</ol>
+				</section>
+
+				<section>
+					<h3>1. Intro to Kubernetes</h3>
+				</section>
+
+				<section>
+					<p>But before we get started with Kubernetes, let's cover some quick background information...</p>
+				</section>
+
+				<section>
+					<section>
+						<h3>Containers</h3>
+						<hr />
+						<ul>
+							<li>A way to package code and all its dependencies so an application runs reliably from one environment to another</li>
+							<li>Similar to Virtual Machines (VMs), containers provide benefits like resource isolation and allocation</li>
+							<li>Unlike VMs, containers virtualize the operating system instead of the hardware</li>
+							<li>This allows containers to be more portable and efficient</li>
+							<li>Press &darr; for additional resources on Containers</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Additional resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://www.youtube.com/watch?v=0qotVMX-J5s" target="_blank">Containerization Explained</a></li>
+							<li><a href="https://www.youtube.com/watch?v=cjXI-yxqGTI" target="_blank">Containers vs VMs: What's the difference?</a></li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Docker</h3>
+						<hr />
+						<ul>
+							<li>Docker is a software platform that allows you to build, test, and deploy applications quickly</li>
+							<li>Docker packages software into containers</li>
+							<li><a href="https://hub.docker.com/" target="_blank">Docker Hub</a> is the world's largest library and community for container images</li>
+							<li>Press &darr; for additional resources on Docker</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Additional resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://www.youtube.com/watch?v=Gjnup-PuquQ" target="_blank">Docker in 100 Seconds</a></li>
+							<li><a href="https://docs.docker.com/get-started/02_our_app/" target="_blank">Containerize an Application</a></li>
+							<li><a href="https://learn.cantrill.io/p/docker-fundamentals" target="_blank">Docker Fundamentals Course</a></li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Microservices</h3>
+						<hr />
+						<ul>
+							<li>Microservices are an architectural and organizational approach to software development where software is composed of small independent services</li>
+							<li>The trend from monolithic architectures towards microservices caused an increased use of container technologies</li>
+							<li>This resulted in applications that could be made up of lots and lots of containers</li>
+							<li>Press &darr; for additional resources on microservices</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Additional resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://www.youtube.com/watch?v=CdBtNQZH8a4" target="_blank">What are Microservices?</a></li>
+							<li><a href="https://www.youtube.com/watch?v=lTAcCNbJ7KE" target="_blank">What Are Microservices Really All About? (And When Not To Use It)</a></li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>TODO - customize this</h3>
+					<h3>Intro to Kubernetes</h3>
+					<hr />
+					<ul>
+						<li>Open source container orchestration tool</li>
+						<li>Developed by Google</li>
+						<li>Helps manage containerized applications in different deployment environments</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Kubernetes Benefits</h3>
+					<hr />
+					<ul>
+						<li>High availability: </li>
+						<li>Scalability: </li>
+						<li>Disaster Recovery:</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h3>Kubernetes Costs</h3>
+						<hr />
+						<ul>
+							<li>Increased Complexity</li>
+							<li>Press &darr; for additional resources</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Additional resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://www.youtube.com/watch?v=H5sPGruv2yc" target="_blank">You Don’t Need Kubernetes</a></li>
+						</ul>
+					</section>
+				</section>
+
+
+
+
+				<section>
+					<h3>Motivation</h3>
+					<p>
+						When to use
+						When not to use
+						Additional Resources
+							- Theo's not to use kubernetes video
+					</p>
+				</section>
+
+				<section>
+					<h3>Architecture</h3>
+					<p>
+						When to use
+						When not to use
+						Additional Resources
+							- ByteByteGo's short architecture video
+					</p>
+				</section>
+
+				<section>
+					<h3>Project - Coopernetes</h3>
+					<p>TODO - image of Cooper behind the Kubernetes logo w/ a sailor's hat</p>
+				</section>
+	
+				<section>Additional Resources</section>
+
+				<section>
+					<h3>Feedback Form</h3>
+					<hr />
+				
+				</section>
+
+				<section>Thank you!</section>
 			</div>
 		</div>
 

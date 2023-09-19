@@ -1871,3 +1871,20 @@ $notesWidthPercent: 25%;
 @import 'print/pdf.scss';
 @import 'print/paper.scss';
 
+
+/*********************************************
+ * MY STYLES
+ *********************************************/
+.image-sm {
+	max-height: 200px !important;
+}
+/*
+.scrollable-slide {
+    height: 800px;
+    overflow-y: auto !important;
+}
+*/
+
+strong {
+	color: #4DB33D;
+}
