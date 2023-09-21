@@ -6,7 +6,7 @@ metadata:
     project: coopernetes
 spec:
   containers:
-  - name: web
-    image: andrewingraham509/coopernetes:latest
-    ports:
-    - containerPort:  8080
+    - name: web
+      image: andrewingraham509/coopernetes:latest
+      ports:
+        - containerPort: 3000

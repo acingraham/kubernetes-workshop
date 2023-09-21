@@ -103,6 +103,7 @@
 				</section>
 
 				<section>
+					<h3>TODO - Should install both images once you have them (dark mode for rolling update demo)</h3>
 					<h3>[4 of 4] Install the Coopernetes container we'll be using for examples</h3>
 					<hr />
 
@@ -155,8 +156,8 @@
 					<hr />
 					<ol>
 						<li>Intro to Kubernetes</li>
-						<li>Kubernetes Architecture and Fundamentals</li>
-						<li>Demo Project</li>
+						<li>Kubernetes Architecture</li>
+						<li>Demo Project and Kubernetes Fundamentals</li>
 					</ol>
 				</section>
 
@@ -217,7 +218,7 @@
 						<h3>Microservices</h3>
 						<hr />
 						<ul>
-							<li>Microservices are an architectural and organizational approach to software development where software is composed of small independent services</li>
+							<li>Microservices are an architectural and organizational approach to software development where software is composed of small, independent services</li>
 							<li>The trend from monolithic architectures towards microservices caused an increased use of container technologies</li>
 							<li>This resulted in applications that could be made up of lots and lots of containers</li>
 							<li>Press &darr; for additional resources on microservices</li>
@@ -245,12 +246,28 @@
 				</section>
 
 				<section>
+					<h3>TODO - describe situation of running microservices without Kubernetes</h3>
+					<hr />
+					<ul>
+						<li>Open source container orchestration tool</li>
+						<li>Developed by Google</li>
+						<li>Helps manage containerized applications in different deployment environments</li>
+					</ul>
+				</section>
+
+				<section>
 					<h3>Kubernetes Benefits</h3>
 					<hr />
 					<ul>
 						<li>High availability: </li>
 						<li>Scalability: </li>
 						<li>Disaster Recovery:</li>
+
+						<hr />
+						<li>Self healing</li>
+						<li>Replicating architecture across environments (dev, prod)</li>
+						<li>Replicating architecture across environments (AWS, Azure)</li>
+						<li>Declarative syntax</li>
 					</ul>
 				</section>
 
@@ -260,6 +277,7 @@
 						<hr />
 						<ul>
 							<li>Increased Complexity</li>
+							<li>Upfront cost</li>
 							<li>Press &darr; for additional resources</li>
 						</ul>
 					</section>
@@ -271,9 +289,6 @@
 						</ul>
 					</section>
 				</section>
-
-
-
 
 				<section>
 					<h3>Motivation</h3>
@@ -296,11 +311,263 @@
 				</section>
 
 				<section>
+					Cluster
+					Cluster is made up of Nodes. A Node is just a physical or virtual machine that is set up to run Pods.
+					Pods
+						Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.
+						Lightweight abstraction over container
+						Makes Kubernetes container runtime agnostic (maybe?)
+						Typically 1-to-1 with container. Meaning we'll usually only run 1 container within a Pod. We might include some sidecar containers in the same Pod.
+							- Any ideas why this is the standard?
+						Ephemeral. Can die very easily.
+	
+					Typically 2 Types of Nodes. Control plane nodes and worker nodes. TODO - Is the control plane actually running on Nodes? I think this is false.
+					Control Plane
+						Control plane is the brains of Kubernetes
+						Can be multiple nodes. Think of production. Usually going to be separated regionally.
+						Components
+							- API Server - Exposes the Kubernetes API and acts as the frontend for the control plane.
+							- Controller Manager - has a variety of responsibilities. Some include:
+								- Responsible for noticing and responding when nodes go down
+								- Watches for Job objects that represent one-off tasks, then creates Pods to run those tasks to completion.
+							- Scheduler
+								- Watches for newly created Pods without an assigned Node and selects a Node for them to run on
+								- Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.
+								- Intelligently assign new pods to most appropriate Node
+							- etcd
+								- etcd is a strongly consistent, distributed key-value store. Pre-dates Kubernetes and is used outside of Kubernetes.
+								- Within Kubernetes, it'd used for
+									- Configuration data
+									- Status information
+									- Info about Nodes and containers
+									- With a backup of etcd... TODO - I think you can restore a cluster completely using an etcd backup
+
+					Worker Nodes
+						Where our application code runs
+						What is running on worker node
+							- kubelet
+							- kubeproxy
+					Virtual Network
+						Basically turns the cluster into one giant machines
+						Workers are usually
+
+				</section>
+
+				<section>What are Kubernetes components?</section>
+
+				<section>
 					<h3>Project - Coopernetes</h3>
+					- Run project locally w/o Kubernetes and show off the behavior. Could run w/ Docker. If you don't run with Docker, press down to see how to run w/ Docker.
+					- At the beginning we downloaded a couple of containers with this application
+					- Lets use kubernetes to run it locally!
 					<p>TODO - image of Cooper behind the Kubernetes logo w/ a sailor's hat</p>
 				</section>
+
+				<section>
+					We're using Docker Desktop to run Kubernetes
+					- Open Docker Desktop and show some basics (Containers and Images tabs)
+					- Images are read-only, immutable templates that define how a container will be created. Containers are the runtime instance of an image.
+					- What does it mean for Kubernetes to be running on Docker Desktop? TODO - Answer This
+					- Note that Docker Desktop is only using 1 node for our entire Kubernetes cluster. Fine for our purposes, but obviously not what we'd do in production. A reminder that 
+				</section>
+
+				<section>
+					kubectl
+						- A Kubernetes command-line tool that allows you to interact with your Kubernetes cluster
+						- TODO - Add meme about kubectl pronunciation
+				</section>
+
+				<section>
+					kubectl cluster-info
+						- Displays cluster info
+						- Shows Kubernetes control plane and CoreDNS are running. CoreDNS is a DNS server that serves as the Kubernetes cluster DNS. Used for service discovery?
+					kubectl get nodes
+						- Gets information about the Nodes in our cluster
+						- You should see (at least) one row with NAME of “docker-desktop”
+						- Notice we only have the control plane node
+						- If you don't see the docker-desktop node, make sure you enabled kubernetes in docker desktop and it completed restarting.
+					kubectl config get-contexts
+						- A Kubernetes context is a group of access parameters that define which cluster you're interacting with, which user you're using, and which namespace you're working in.
+						- We want to make sure we're interacting with the Docker Desktop Kubernetes cluster
+						- One row should have "*" in the CURRENT column.
+						- If it isn't "docker-desktop", run `kubectl config use-context docker-desktop`
+				</section>
+
+				<section>
+					Creating our first Pod!
+						- Reminder: Pods are the smallest deployable units of computing that you can create and manage in Kubernetes. They're a thin abstraction over the container.
+				</section>
+
+				<section>
+					kubectl run myfirstpod --image=andrewingraham509/coopernetes:latest
+						- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4
+						- Fine for quick experimentation but not how we'll normally create Pods
+				</section>
+
+				<section>
+					Manifest files
+					- Describe Kubernetes objects
+					- Kubernetes objects are... TODO
+					- Declarative. We describe the desired state and Kubernetes makes changes to reach that state.
+					- Required fields
+						- apiVersion - Which version of the Kubernetes API you're using to create this object
+						- kind - What kind of object you want to create
+						- metadata - Data that helps uniquely identify the object, including a name string, UID, and optional namespace
+						- spec - What state you desire for the object
+					- https://kubernetes.io/docs/concepts/overview/working-with-objects/
+					- Additional resources: https://kubernetes.io/docs/concepts/configuration/overview/
+				</section>
+
+				<section>
+					To create a Pod, we need to create a Manifest / Configuration file (TODO - figure out name)
+					- Go over writing YAML and the VS extension for this if you don't do it earlier
+					- Configuration files can be written in JSON or YAML
+					- 3 Parts to a configuration file. The first 2 parts are the metadata and specification (which differs based on the metadata). I said there were 3 parts. Where's the 3rd? That's the status of the configuration file. It's automatically generated and edited by Kubernetes.
+					- TODO - Configuration file may be called a Manifest. Basing that off of https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications
+					- Where does Kubernetes get this status information? etcd stores this information. What puts it in etcd? TODO - Answer this question.
+					- YAML is super strict with indentation
+				</section>
 	
-				<section>Additional Resources</section>
+				<section>
+					kubectl apply -f pod.yml
+						- `kubectl apply -f` lets you send a file to the Kubernetes API Server
+						- Kubernetes will read the file and store the configuration in the cluster store
+						- The scheduler will then find a worker node to run the Pod
+				</section>
+
+				<section>
+					kubectl get nodes
+						- Should now see our Pod running! If you ran this command really quickly, you may not see it just yet.
+				</section>
+
+				<section>
+					kubectl describe pod first-pod
+						- This will give us more details about the pod
+				</section>
+
+				<section>
+					kubectl exec first-pod -- /bin/ls
+						- Executing commands within an existing Pod
+						- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4
+				</section>
+
+				<section>
+					kubectl exec --stdin --tty first-pod -- /bin/sh
+						- Connect a shell to an existing Pod
+						- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4
+				</section>
+
+				<section>
+					Can't access Pod. What gives?
+					- Virtual Network
+					- Pods aren't exposed / accessible
+				</section>
+
+				<section>
+					Service
+						Used for creating a static ip address
+						Lifecycles of pod and service are not connected
+						Internal vs. External (are there other kinds?)
+						Additional Resources:
+							- https://kubernetes.io/docs/concepts/services-networking/service/
+				</section>
+
+				<section>
+					kubectl get svc
+				</section>
+
+				<section>Defining the Service</section>
+
+				<section>
+					kubectl apply -f svc.yml
+				</section>
+
+				<section>
+					kubectl get svc
+						- CLUSTER-IP value is an IP address on the internal Kubernetes Pod network and is used by other Pods and applications running on the cluster
+						- Since it's a NodePort Service, it can be accessed by connecting to any cluster node o port 31111 as specified in the PORT(S) column.
+				</section>
+
+				<section>
+					kubectl describe svc first-svc
+				</section>
+
+				<section>kubectl delete svc first-svc</section>
+				<section>kubectl delete pod first-pod</section>
+
+				<section>Session affinity?</section>
+
+				<section>
+					Deployments
+					- Blueprints / Templates
+					- This is how you'll pretty much always be defining pods in practice
+					- Remember how we said Kubernetes (or something TODO) is declarative? monitors the current state of the system along with the desired state and tries to keep them aligned.
+				</section>
+
+				<section>
+					kubectl create deployment
+					- Quickly create single-container Deployments and Services.
+					- https://kubernetes.io/docs/concepts/configuration/overview/
+				</section>
+				<section>Ingress - better url for accessing site</section>
+				<section>
+					Self-healing - kill a pod and see it still works. May add the endpoint to crash the app
+					- Try killing pod and show it will be brought back up
+					- However, there is still downtime here. Move on to changing the number of replicas
+				</section>
+				<section>
+					Increasing number of replicas. Redeploy.
+					- Change YAML file and Redeploy
+					- Note the additional pod
+					- Try killing one now and confirm that the website is never down
+					- Additionally, you can see the pod has been replaced.
+					- This demonstrates another feature of the Service component - it acts as a load balancer, routing requests to the pods.
+					- Emphasize that the way the Service knows which pods it can send requests to by the label
+				</section>
+				<section>
+					Rolling update - dark mode version
+						- Show that you may get a different pod response
+				</section>
+				<section>
+					Session Affinity
+						- What if we don't want our users to be getting responses from different Pods and switching between deployments mid-rollout?
+						- 
+						- https://kubernetes.io/docs/reference/networking/virtual-ips/#session-affinity
+				</section>
+				<section>ConfigMap - changing background color</section>
+				<section>
+					Secrets - TODO
+					- base64 encoding
+				</section>
+				<section>Add database</section>
+				<section>Why can't we use Deployments for replicating a database?</section>
+				<section>
+					Stateful Sets
+					- What you'd use for stateful applications (like databases) within cluster
+					- Takes care of replicating pods just like Deployments, but ensures synchronization of data betweens pods
+					- Recommendation seems to be to avoid putting databases in your Kubernetes cluster and instead to place them outside. I _think_ Volume Claims are used to do this. Definitely research.
+				</section>
+				<section>
+					Volumes?
+					- could be local storage to cluster
+					- could be external storage which is not part of the k8s cluster. This is recommended for production.
+					- Kubernetes doesn't manage any data persistence. Handling things like replication and backup is our responsibility.
+				</section>
+				<section>Job - send a pet to Cooper at a scheduled time</section>
+				<section>CronJob - send pets regularly to Cooper with a cronjob</section>
+				<section>
+					- Deploying to something like linode
+				</section>
+	
+				<section>
+					<h3>Additional Resources</h3>
+					<hr />
+					<ul>
+						<li><a href="https://roadmap.sh/kubernetes" target="_blank">Roadmap.sh - Kubernetes Roadmap</a></li>
+						<li><a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/" target="_blank">Kubernetes.io - Learn Kubernetes Basics</a></li>
+						<li><a href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank">Kubernetes the Hard Way</a></li>
+					</ul>
+				</section>
 
 				<section>
 					<h3>Feedback Form</h3>
