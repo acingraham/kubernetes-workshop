@@ -103,10 +103,8 @@
 				</section>
 
 				<section>
-					<h3>TODO - Should install both images once you have them (dark mode for rolling update demo)</h3>
 					<h3>[4 of 4] Install the Coopernetes container we'll be using for examples</h3>
 					<hr />
-
 					<ul>
 						<li>
 							<p>Run the following command in your terminal:</p>
@@ -441,23 +439,23 @@
 					<h3>3. Demo Project and Kubernetes Fundamentals</h3>
 					<hr />
 					<ul>
-						<li class="fragment">Let's start by running the project with Docker</li>
+						<li class="fragment">Let's start by running the project without Kubernetes</li>
+						<li class="fragment">I have the <a href="https://github.com/acingraham/coopernetes" target="_blank">GitHub repo</a> downloaded locally for this</li>
 					</ul>
 				</section>
 
 				<section>
-					<h3>Project - Coopernetes</h3>
+					<h3>Docker Desktop</h3>
 					<hr />
 					<ul>
-						<li class="fragment">At the beginning of this session you downloaded a container from Docker Hub</li>
-						<li class="fragment">At the beginning of this session you downloaded a container from Docker Hub</li>
+						<li class="fragment">We're going to be running Kubernetes on Docker Desktop</li>
+						<li class="fragment">At the beginning of this workshop you downloaded a Docker image of the Coopernetes project</li>
+						<li class="fragment">Images are read-only, immutable templates that define how a container will be created. Containers are the runtime instance of an image.</li>
+						<li class="fragment">Note that Docker Desktop will only using 1 node for our entire Kubernetes cluster. Fine for our purposes, but obviously not what we'd do in production.</li>
 					</ul>
-					- Run project locally w/o Kubernetes and show off the behavior. Could run w/ Docker. If you don't run with Docker, press down to see how to run w/ Docker.
-					- At the beginning we downloaded a couple of containers with this application
-					- Lets use kubernetes to run it locally!
-					<p>TODO - image of Cooper behind the Kubernetes logo w/ a sailor's hat</p>
 				</section>
 
+				<!--
 				<section>
 					We're using Docker Desktop to run Kubernetes
 					- Open Docker Desktop and show some basics (Containers and Images tabs)
@@ -465,13 +463,56 @@
 					- What does it mean for Kubernetes to be running on Docker Desktop? TODO - Answer This
 					- Note that Docker Desktop is only using 1 node for our entire Kubernetes cluster. Fine for our purposes, but obviously not what we'd do in production. A reminder that 
 				</section>
+				-->
 
 				<section>
-					kubectl
-						- A Kubernetes command-line tool that allows you to interact with your Kubernetes cluster
-						- TODO - Add meme about kubectl pronunciation
+					<h3>kubectl</h3>
+					<hr />
+					<ul>
+						<li class="fragment">A Kubernetes command-line tool that allows you to interact with your Kubernetes cluster</li>
+						<li class="fragment">What control plane component do you think it communicates with?</li>
+					</ul>
 				</section>
 
+				<section>
+					<img src="./assets/kubectl-pronunciation.jpeg" alt="Kubectl Pronunciation Meme"  class="image-md"/>
+				</section>
+				<section>
+					<pre><code data-trim data-noescape>
+						kubectl cluster-info
+					</code></pre>
+					<ul>
+						<li class="fragment">Displays cluster info</li>
+						<li class="fragment">Shows Kubernetes control plane and CoreDNS are running. CoreDNS is a DNS server that serves as the Kubernetes cluster DNS.</li>
+					</ul>
+				</section>
+
+				<section>
+					<pre><code data-trim data-noescape>
+						kubectl get nodes
+					</code></pre>
+					<ul>
+						<li class="fragment">Gets information about the Nodes in our cluster</li>
+						<li class="fragment">You should see (at least) one row with NAME of “docker-desktop”</li>
+						<li class="fragment">Notice we only have the control plane node</li>
+						<li class="fragment">If you don't see the docker-desktop node, make sure you enabled kubernetes in docker desktop and it completed restarting.</li>
+					</ul>
+				</section>
+
+				<section>
+					<pre><code data-trim data-noescape>
+						kubectl config get-contexts
+					</code></pre>
+					<ul>
+						<li class="fragment">A Kubernetes context is a group of access parameters that define which cluster you're interacting with, which user you're using, and which namespace you're working in</li>
+						<li class="fragment">We want to make sure we're interacting with the Docker Desktop Kubernetes cluster</li>
+						<li class="fragment">One row should have "*" in the CURRENT column</li>
+						<li class="fragment">If it isn't "docker-desktop", run <pre><code data-trim data-noescape>kubectl config use-context docker-desktop</code></pre></li>
+					</ul>
+				</section>
+
+
+				<!--
 				<section>
 					kubectl cluster-info
 						- Displays cluster info
@@ -487,32 +528,162 @@
 						- One row should have "*" in the CURRENT column.
 						- If it isn't "docker-desktop", run `kubectl config use-context docker-desktop`
 				</section>
-
+				-->
 				<section>
-					Creating our first Pod!
-						- Reminder: Pods are the smallest deployable units of computing that you can create and manage in Kubernetes. They're a thin abstraction over the container.
+					<h3>Creating our first Pod!</h3>
+					<hr />
+					<ul>
+						<li class="fragment">Reminder: Pods are the smallest deployable units of computing that you can create and manage in Kubernetes. They're a thin abstraction over the container.</li>
+					</ul>
 				</section>
 
 				<section>
-					kubectl run myfirstpod --image=andrewingraham509/coopernetes:latest
-						- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4
-						- Fine for quick experimentation but not how we'll normally create Pods
+					<pre><code data-trim data-noescape>
+						kubectl run myfirstpod --image=andrewingraham509/coopernetes:latest
+					</code></pre>
+					<ul>
+						<li class="fragment">Run the above in the terminal and then use one of our previous kubectl commands to see if it's running</li>
+					</ul>
+
+					<!-- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4 -->
 				</section>
 
 				<section>
-					Manifest files
-					- Describe Kubernetes objects
-					- Kubernetes objects are... TODO
-					- Declarative. We describe the desired state and Kubernetes makes changes to reach that state.
-					- Required fields
-						- apiVersion - Which version of the Kubernetes API you're using to create this object
-						- kind - What kind of object you want to create
-						- metadata - Data that helps uniquely identify the object, including a name string, UID, and optional namespace
-						- spec - What state you desire for the object
-					- https://kubernetes.io/docs/concepts/overview/working-with-objects/
-					- Additional resources: https://kubernetes.io/docs/concepts/configuration/overview/
+					<pre><code data-trim data-noescape>
+						kubectl describe pod myfirstpod
+					</code></pre>
+					<ul>
+						<li class="fragment">This returns more details about the Pod</li>
+					</ul>
 				</section>
 
+				<section>
+					<pre><code data-trim data-noescape>
+						kubectl exec myfirstpod -- /bin/ls
+					</code></pre>
+					<ul>
+						<li class="fragment">We can execute commands within an existing Pod</li>
+					</ul>
+					<!-- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4 -->
+				</section>
+
+				<section>
+					<pre><code data-trim data-noescape>
+						kubectl exec --stdin --tty myfirstpod -- /bin/sh
+					</code></pre>
+					<ul>
+						<li class="fragment">And also connect a shell to an existing Pod</li>
+					</ul>
+					<!-- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4 -->
+				</section>
+
+				<section>
+					<h3>Creating Pods through the commandline</h3>
+					<hr />
+					<ul>
+						<li class="fragment">Fine for quick experimentation, but not how we'll normally create Pods</li>
+						<li class="fragment"></li>
+					</ul>
+				</section>
+
+				<section>
+					<pre><code data-trim data-noescape>
+						kubectl delete pod myfirstpod
+					</code></pre>
+					<ul>
+						<li class="fragment">Let's delete our previous Pod</li>
+						<li class="fragment">And create a new one using...</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h3>Manifest Files!</h3>
+						<hr />
+						<ul>
+							<li class="fragment">Describe <a href="https://www.airplane.dev/blog/kubernetes-objects" target="_blank">Kubernetes objects</a></li>
+							<li class="fragment">Declarative. We describe the desired state and Kubernetes makes changes to reach that state.</li>
+							<li class="fragment">Can be written in YAML or JSON</li>
+							<li class="fragment">Can easily be stored in version control software</li>
+							<li class="fragment">Press &darr; for additional resources on Manifest Files</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Additional Resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://kubernetes.io/docs/concepts/configuration/overview/" target="_blank">Configuration Best Practices</a></li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h3>4 Required Fields</h3>
+					<hr />
+					<ul>
+						<li class="fragment"><strong>apiVersion</strong> - Which version of the Kubernetes API you're using to create this object</li>
+						<li class="fragment"><strong>kind</strong> - What kind of object you want to create</li>
+						<li class="fragment"><strong>metadata</strong> - Data that helps uniquely identify the object, including a name string, UID, and optional namespace</li>
+						<li class="fragment"><strong>spec</strong> - What state you desire for the object</li>
+					</ul>
+					<!-- https://kubernetes.io/docs/concepts/overview/working-with-objects/ -->
+				</section>
+
+				<section>
+					<h3>pod.yml</h3>
+					<hr />
+					<pre><code data-line-numbers="1|2|3-6|7-12" data-trim data-noescape>
+						apiVersion: v1
+						kind: Pod
+						metadata:
+						  name: first-pod
+						  labels:
+						    project: coopernetes
+						spec:
+						  containers:
+						    - name: web
+						      image: andrewingraham509/coopernetes:latest
+						      ports:
+						        - containerPort: 3000
+					</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<pre><code data-trim data-noescape>
+							kubectl apply -f pod.yml
+						</code></pre>
+						<ul>
+							<li class="fragment">Save the code on the previous slide to a file named <strong>pod.yml</strong></li>
+							<li class="fragment">Alternatively, you can download the file in the <a href="https://github.com/acingraham/kubernetes-workshop/blob/main/yaml/solutions/pod.yml" target="_blank">GitHub repo</a></li>
+							<li class="fragment">Run the above command to create your Pod</li>
+							<li class="fragment">Afterwards, try some of the kubectl commands we learned to check if it's running</li>
+							<li class="fragment">Press &darr; for some VS Code Extensions to help with writing Manifest Files</li>
+						</ul>
+					</section>
+					<section>
+						<h3>VS Code Extensions</h3>
+						<hr />
+						<ul>
+							<li><a href="https://marketplace.visualstudio.com/items?itemName=lunuan.kubernetes-templates" target="_blank">Kubernetes Templates</a></li>
+							<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools" target="_blank">Kubernetes Tools</a></li>
+						</ul>
+					</section>
+				</section>
+
+
+				<section>
+					<h3>kubectl apply</h3>
+					<hr />
+					<ul>
+						<li class="fragment"><strong>kubectl apply -f</strong> lets you send a file to the Kubernetes API Server</li>
+						<li class="fragment">Kubernetes will read the file and store the configuration in the cluster store</li>
+						<li class="fragment">The <strong>scheduler</strong> will then find a worker node to run the Pod</li>
+					</ul>
+				</section>
+
+
+				<!--
 				<section>
 					To create a Pod, we need to create a Manifest / Configuration file (TODO - figure out name)
 					- Go over writing YAML and the VS extension for this if you don't do it earlier
@@ -522,74 +693,135 @@
 					- Where does Kubernetes get this status information? etcd stores this information. What puts it in etcd? TODO - Answer this question.
 					- YAML is super strict with indentation
 				</section>
-	
+				-->
+
 				<section>
-					kubectl apply -f pod.yml
-						- `kubectl apply -f` lets you send a file to the Kubernetes API Server
-						- Kubernetes will read the file and store the configuration in the cluster store
-						- The scheduler will then find a worker node to run the Pod
+					<h3>Try going to localhost:3000</h3>
+					<hr />
+					<ul>
+						<li class="fragment">Are you able to access the site?</li>
+						<li class="fragment">Probably not. This is because Kubernetes doesn't expose Pods automatically.</li>
+						<li class="fragment">To solve this, we'll need another Kubernetes component...</li>
+					</ul>
 				</section>
 
 				<section>
-					kubectl get nodes
-						- Should now see our Pod running! If you ran this command really quickly, you may not see it just yet.
+					<section>
+					<h3>Services</h3>
+					<hr />
+					<ul>
+						<li class="fragment">Used for creating static IP addresses</li>
+						<li class="fragment">Lifecycles of Pod and Service are not connected</li>
+						<li class="fragment">Recall that Pods are ephemeral</li>
+						<li class="fragment">Services can be internal or external to the cluster</li>
+						<li class="fragment">Press &darr; for additional resources on Services</li>
+					</ul>
+					</section>
+					<section>
+						<h3>Additional Resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://kubernetes.io/docs/concepts/services-networking/service/">Kubernetes Service</a></li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
-					kubectl describe pod first-pod
-						- This will give us more details about the pod
+					<pre><code data-trim data-noescape>
+						kubectl get svc
+					</code></pre>
+					<ul>
+						<li>Try running the above to see what Services are running</li>
+						<li>Then we'll try creating a new Service with another Manifest file</li>
+					</ul>
 				</section>
 
 				<section>
-					kubectl exec first-pod -- /bin/ls
-						- Executing commands within an existing Pod
-						- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4
+					<h3>svc.yml</h3>
+					<hr />
+					<pre><code data-line-numbers="1|2|3-4|5-13" data-trim data-noescape>
+						apiVersion: v1
+						kind: Service
+						metadata:
+						  name: first-svc
+						spec:
+						  type: NodePort
+						  ports:
+						  - port: 3000
+						    protocol: TCP
+						    targetPort: 3000
+						    nodePort: 31111
+						  selector:
+						    project: coopernetes
+					</code></pre>
 				</section>
 
 				<section>
-					kubectl exec --stdin --tty first-pod -- /bin/sh
-						- Connect a shell to an existing Pod
-						- https://kubebyexample.com/learning-paths/application-development-kubernetes/lesson-1-running-containerized-applications-4
+					<pre><code data-trim data-noescape>
+						kubectl apply -f svc.yml
+					</code></pre>
+					<ul>
+						<li class="fragment">Save the code on the previous slide to a file named <strong>svc.yml</strong></li>
+						<li class="fragment">Alternatively, you can download the file in the <a href="https://github.com/acingraham/kubernetes-workshop/blob/main/yaml/solutions/svc.yml" target="_blank">GitHub repo</a></li>
+						<li class="fragment">Run the above command to create your Service</li>
+						<li class="fragment">Afterwards, try some of the kubectl commands we learned to check if it's running</li>
+					</ul>
 				</section>
 
 				<section>
-					Can't access Pod. What gives?
-					- Virtual Network
-					- Pods aren't exposed / accessible
+					<pre><code data-trim data-noescape>
+						kubectl describe svc first-svc
+					</code></pre>
+					<ul>
+						<li>Try running the above to see more info about your Service</li>
+					</ul>
 				</section>
 
 				<section>
-					Service
-						Used for creating a static ip address
-						Lifecycles of pod and service are not connected
-						Internal vs. External (are there other kinds?)
-						Additional Resources:
-							- https://kubernetes.io/docs/concepts/services-networking/service/
+					<h3>Go to localhost:31111 and confirm it works</h3>
 				</section>
 
 				<section>
-					kubectl get svc
+					<h3>Deleting the Pod and Service</h3>
+					<pre><code data-trim data-noescape>
+						kubectl delete svc first-svc
+					</code></pre>
+					<pre><code data-trim data-noescape>
+						kubectl delete pod first-pod
+					</code></pre>
 				</section>
 
-				<section>Defining the Service</section>
+		
+				<section>
+					<h3>Deployments</h3>
+					<hr />
+					<ul>
+						<li>Blueprints / Templates</li>
+						<li>This is how you'll pretty much always be defining pods in practice</li>
+						<li>Try converting the existing Pod to a Deployment by following the instructions <a href="https://medium.com/@whaleberry/convert-pod-to-deployment-in-kubernetes-b0f2fc362b21" target="_blank">here</a></li>
+					</ul>
+				</section>
 
 				<section>
-					kubectl apply -f svc.yml
+					<h3>Deployments</h3>
+					<hr />
+					<ul>
+						<li>What happens if you try to delete a Pod? Does it stay deleted?</li>
+						<li>What happens if you change the number of replicas in the Deployment?</li>
+					</ul>
 				</section>
 
+
+				<!--
 				<section>
 					kubectl get svc
 						- CLUSTER-IP value is an IP address on the internal Kubernetes Pod network and is used by other Pods and applications running on the cluster
 						- Since it's a NodePort Service, it can be accessed by connecting to any cluster node o port 31111 as specified in the PORT(S) column.
 						- https://www.endpointdev.com/blog/2022/01/kubernetes-101/ - This shows how we get the IP address of the service
 				</section>
+				-->
 
-				<section>
-					kubectl describe svc first-svc
-				</section>
-
-				<section>kubectl delete svc first-svc</section>
-				<section>kubectl delete pod first-pod</section>
+				<!--
 
 				<section>Session affinity?</section>
 
@@ -661,7 +893,15 @@
 				<section>
 					- Deploying to something like linode
 				</section>
-	
+				-->
+				<section>
+					<h3>4. Kubernetes at Mongo</h3>
+					<hr />
+					<ul>
+						<li><a href="https://docs.google.com/document/d/1ODBtBk_0c3am_8EKXAlLZrTa9HQ4875IdXwK1h7heEo/edit" target="_blank">Kubernetes & Mongo Notes</a></li>
+					</ul>
+				</section>
+
 				<section>
 					<h3>Additional Resources</h3>
 					<hr />
