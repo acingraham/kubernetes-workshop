@@ -158,6 +158,7 @@
 						<li>Intro to Kubernetes</li>
 						<li>Kubernetes Architecture</li>
 						<li>Demo Project and Kubernetes Fundamentals</li>
+						<li>Kubernetes at Mongo</li>
 					</ol>
 				</section>
 
@@ -174,11 +175,11 @@
 						<h3>Containers</h3>
 						<hr />
 						<ul>
-							<li>A way to package code and all its dependencies so an application runs reliably from one environment to another</li>
-							<li>Similar to Virtual Machines (VMs), containers provide benefits like resource isolation and allocation</li>
-							<li>Unlike VMs, containers virtualize the operating system instead of the hardware</li>
-							<li>This allows containers to be more portable and efficient</li>
-							<li>Press &darr; for additional resources on Containers</li>
+							<li class="fragment">A way to package code and all its dependencies so an application runs reliably from one environment to another</li>
+							<li class="fragment">Similar to Virtual Machines (VMs), containers provide benefits like resource isolation and allocation</li>
+							<li class="fragment">Unlike VMs, containers virtualize the operating system instead of the hardware</li>
+							<li class="fragment">This allows containers to be more portable and efficient</li>
+							<li class="fragment">Press &darr; for additional resources on Containers</li>
 						</ul>
 					</section>
 					<section>
@@ -196,10 +197,10 @@
 						<h3>Docker</h3>
 						<hr />
 						<ul>
-							<li>Docker is a software platform that allows you to build, test, and deploy applications quickly</li>
-							<li>Docker packages software into containers</li>
-							<li><a href="https://hub.docker.com/" target="_blank">Docker Hub</a> is the world's largest library and community for container images</li>
-							<li>Press &darr; for additional resources on Docker</li>
+							<li class="fragment">Docker is a software platform that allows you to build, test, and deploy applications quickly</li>
+							<li class="fragment">Docker packages software into containers</li>
+							<li class="fragment"><a href="https://hub.docker.com/" target="_blank">Docker Hub</a> is the world's largest library and community for container images</li>
+							<li class="fragment">Press &darr; for additional resources on Docker</li>
 						</ul>
 					</section>
 					<section>
@@ -218,10 +219,10 @@
 						<h3>Microservices</h3>
 						<hr />
 						<ul>
-							<li>Microservices are an architectural and organizational approach to software development where software is composed of small, independent services</li>
-							<li>The trend from monolithic architectures towards microservices caused an increased use of container technologies</li>
-							<li>This resulted in applications that could be made up of lots and lots of containers</li>
-							<li>Press &darr; for additional resources on microservices</li>
+							<li class="fragment">Microservices are an architectural and organizational approach to software development where software is composed of small, independent services</li>
+							<li class="fragment">The trend from monolithic architectures towards microservices caused an increased use of container technologies</li>
+							<li class="fragment">This resulted in applications that could be made up of lots and lots of containers</li>
+							<li class="fragment">Press &darr; for additional resources on microservices</li>
 						</ul>
 					</section>
 					<section>
@@ -235,23 +236,23 @@
 				</section>
 
 				<section>
-					<h3>TODO - customize this</h3>
-					<h3>Intro to Kubernetes</h3>
+					<h3>1. Intro to Kubernetes</h3>
 					<hr />
 					<ul>
-						<li>Open source container orchestration tool</li>
-						<li>Developed by Google</li>
-						<li>Helps manage containerized applications in different deployment environments</li>
+						<li class="fragment">Open source container orchestration tool</li>
+						<li class="fragment">Developed by Google</li>
+						<li class="fragment">Helps manage containerized applications in different deployment environments</li>
 					</ul>
 				</section>
 
 				<section>
-					<h3>TODO - describe situation of running microservices without Kubernetes</h3>
+					<h3>Why would we need a container orchestration tool?</h3>
 					<hr />
 					<ul>
-						<li>Open source container orchestration tool</li>
-						<li>Developed by Google</li>
-						<li>Helps manage containerized applications in different deployment environments</li>
+						<li class="fragment">More microservices mean more containers to deploy and manage</li>
+						<li class="fragment"><img src="./assets/ComplexArchitecture.jpeg" /></li>
+						<li class="fragment">Orchestration tools handle this complexity for us</li>
+						<li class="fragment">Also allows us to more easily and accurately replicate our application across environments</li>
 					</ul>
 				</section>
 
@@ -259,15 +260,16 @@
 					<h3>Kubernetes Benefits</h3>
 					<hr />
 					<ul>
-						<li>High availability: </li>
-						<li>Scalability: </li>
-						<li>Disaster Recovery:</li>
-
-						<hr />
-						<li>Self healing</li>
-						<li>Replicating architecture across environments (dev, prod)</li>
-						<li>Replicating architecture across environments (AWS, Azure)</li>
-						<li>Declarative syntax</li>
+						<li class="fragment">Service discovery and load balancing</li>
+						<li class="fragment">Automated rollouts and rollbacks</li>
+						<li class="fragment">Automatic bin packing</li>
+						<li class="fragment">Autoscaling</li>
+						<li class="fragment">Secret and configuration management</li>
+						<li class="fragment">Self-healing</li>
+						<li class="fragment">Declarative syntax</li>
+						<li class="fragment">Replicating architecture across environments (dev, prod, AWS, Azure)</li>
+						<li class="fragment">Increased portability</li>
+						<li class="fragment">Large community</li>
 					</ul>
 				</section>
 
@@ -276,9 +278,9 @@
 						<h3>Kubernetes Costs</h3>
 						<hr />
 						<ul>
-							<li>Increased Complexity</li>
-							<li>Upfront cost</li>
-							<li>Press &darr; for additional resources</li>
+							<li class="fragment">Increased complexity</li>
+							<li class="fragment">YAGNI</li>
+							<li class="fragment">Press &darr; for additional resources</li>
 						</ul>
 					</section>
 					<section>
@@ -286,30 +288,110 @@
 						<hr />
 						<ul>
 							<li><a href="https://www.youtube.com/watch?v=H5sPGruv2yc" target="_blank">You Don’t Need Kubernetes</a></li>
+							<li><a href="https://www.youtube.com/watch?v=y8OnoxKotPQ" target="_blank">Microservices Parody</a></li>
 						</ul>
 					</section>
 				</section>
 
 				<section>
-					<h3>Motivation</h3>
-					<p>
-						When to use
-						When not to use
-						Additional Resources
-							- Theo's not to use kubernetes video
-					</p>
+					<section>
+						<h3>2. Kubernetes Architecture</h3>
+						<hr />
+						<ul>
+							<li>Press &darr; for additional resources</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Additional resources</h3>
+						<hr />
+						<ul>
+							<li><a href="https://www.youtube.com/watch?v=TlHvYWVUZyc" target="_blank">Kubernetes Explained in 6 Minutes | k8s Architecture</a></li>
+						</ul>
+					</section>
 				</section>
 
-				<section>
-					<h3>Architecture</h3>
-					<p>
-						When to use
-						When not to use
-						Additional Resources
-							- ByteByteGo's short architecture video
-					</p>
+
+				<section data-transition="slide-in fade-out">
+					<img src="./assets/Arch1.png" class="image-md"/>
+					<ul>
+						<li class="fragment">A system deployed on Kubernetes is called a <strong>cluster</strong></li>
+						<li class="fragment">A cluster is made up of a <strong>control plane</strong> and <strong>worker nodes</strong></li>
+					</ul>
 				</section>
 
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch2.png" class="image-md"/>
+					<ul>
+						<li class="fragment"><strong>Worker nodes</strong> are where our application code runs</li>
+						<li class="fragment"><strong>Nodes</strong> are physical or virtual machines, configured to run Kubernetes Pods</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch4.png" class="image-md"/>
+					<ul>
+						<li class="fragment"><strong>Pods</strong> are the smallest deployable units of computing that you can create and manage in Kubernetes</li>
+						<li class="fragment">They are a lightweight abstraction over containers</li>
+						<li class="fragment">Typically 1-to-1 with a container. Meaning we'll usually only run 1 container within a Pod. We might include some sidecar containers in the same Pod.</li>
+						<li class="fragment">Ephemeral. Can die very easily.</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch4.png" class="image-md"/>
+					<ul>
+						<li class="fragment">The <strong>control plane</strong> is the brains of a cluster</li>
+						<li class="fragment">Can be composed of multiple nodes</li>
+						<li class="fragment">Made up of 5 Kubernetes components</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch5.png" class="image-md"/>
+					<ul>
+						<li class="fragment">The <strong>API Server</strong> exposes the Kubernetes API and acts as the frontend for the control plane</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch6.png" class="image-md"/>
+					<ul>
+						<li class="fragment">The <strong>Controller Manager</strong> has a variety of responsibilities. Some include:</li>
+						<li class="fragment">Responsible for noticing and responding when nodes go down</li>
+						<li class="fragment">Watches for Job objects that represent one-off tasks, then creates Pods to run those tasks to completion</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch7.png" class="image-md"/>
+					<ul>
+						<li class="fragment">The <strong>Scheduler</strong> watches for newly created Pods without an assigned Node and selects a Node for them to run on</li>
+						<li class="fragment">Intelligently assign new pods to most appropriate Node</li>
+						<li class="fragment">Factors taken into account for scheduling decisions include: individual and collective resource requirements, hardware/software/policy constraints, affinity and anti-affinity specifications, data locality, inter-workload interference, and deadlines.</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch8.png" class="image-md"/>
+					<ul>
+						<li class="fragment"><strong>etcd</strong> is a strongly consistent, distributed key-value store. It pre-dates Kubernetes and is used outside of Kubernetes.</li>
+						<li class="fragment">An etcd backup is enough to restore a Kubernetes cluster's state completely.</li>
+						<li class="fragment">Within Kubernetes, it is used for the following:</li>
+						<li class="fragment">Configuration data</li>
+						<li class="fragment">Status information</li>
+						<li class="fragment">Info about Nodes and containers</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade-in fade-out">
+					<img src="./assets/Arch9.png" class="image-md"/>
+					<ul>
+						<li class="fragment">The <strong>Cloud Controller Manager</strong> lets you link your cluster into your cloud provider's API</li>
+						<li class="fragment">This is an optional component</li>
+					</ul>
+				</section>
+
+				<!--
 				<section>
 					Cluster
 					Cluster is made up of Nodes. A Node is just a physical or virtual machine that is set up to run Pods.
@@ -352,11 +434,24 @@
 						Workers are usually
 
 				</section>
+				-->
 
-				<section>What are Kubernetes components?</section>
+
+				<section>
+					<h3>3. Demo Project and Kubernetes Fundamentals</h3>
+					<hr />
+					<ul>
+						<li class="fragment">Let's start by running the project with Docker</li>
+					</ul>
+				</section>
 
 				<section>
 					<h3>Project - Coopernetes</h3>
+					<hr />
+					<ul>
+						<li class="fragment">At the beginning of this session you downloaded a container from Docker Hub</li>
+						<li class="fragment">At the beginning of this session you downloaded a container from Docker Hub</li>
+					</ul>
 					- Run project locally w/o Kubernetes and show off the behavior. Could run w/ Docker. If you don't run with Docker, press down to see how to run w/ Docker.
 					- At the beginning we downloaded a couple of containers with this application
 					- Lets use kubernetes to run it locally!
@@ -486,6 +581,7 @@
 					kubectl get svc
 						- CLUSTER-IP value is an IP address on the internal Kubernetes Pod network and is used by other Pods and applications running on the cluster
 						- Since it's a NodePort Service, it can be accessed by connecting to any cluster node o port 31111 as specified in the PORT(S) column.
+						- https://www.endpointdev.com/blog/2022/01/kubernetes-101/ - This shows how we get the IP address of the service
 				</section>
 
 				<section>
@@ -508,6 +604,10 @@
 					kubectl create deployment
 					- Quickly create single-container Deployments and Services.
 					- https://kubernetes.io/docs/concepts/configuration/overview/
+				</section>
+
+				<section>
+					kubectl get deployments
 				</section>
 				<section>Ingress - better url for accessing site</section>
 				<section>
@@ -539,7 +639,10 @@
 					Secrets - TODO
 					- base64 encoding
 				</section>
-				<section>Add database</section>
+				<section>
+					Add database
+					- https://www.endpointdev.com/blog/2022/01/kubernetes-101/
+				</section>
 				<section>Why can't we use Deployments for replicating a database?</section>
 				<section>
 					Stateful Sets
@@ -572,7 +675,7 @@
 				<section>
 					<h3>Feedback Form</h3>
 					<hr />
-				
+					<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSesPOg86bFGuP816w_cczDxyJ0tQuzreMiA9NWZXn7R3sslHg/viewform?usp=sf_link" target="_blank">Google Feedback Form</a></p>
 				</section>
 
 				<section>Thank you!</section>
