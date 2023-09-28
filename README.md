@@ -45,6 +45,16 @@ Hakim's open source work is supported by <a href="https://github.com/sponsors/ha
 - 🎬 [Watch the reveal.js video course (paid)](https://revealjs.com/course)
 
 --- 
+
+### Feedback
+- [Session 1 - Sept 22, 2023](https://docs.google.com/forms/d/1ATsQ8fPEyTKl3iJbNM9cQecZ0HsPVSd2K16mB7AAL_o/edit#responses)
+
+--- 
+
+### Roadmap
+- Deployments
+
+---
 <div align="center">
   MIT licensed | Copyright © 2011-2023 Hakim El Hattab, https://hakim.se
 </div>
